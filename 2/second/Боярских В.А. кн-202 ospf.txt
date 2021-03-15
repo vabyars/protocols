@@ -1,0 +1,331 @@
+Взял заготовку, которую дал Солодушкин С.И. Там настроены ip 
+
+1) на R1AR0 show ip route
+     10.0.0.0/8 is variably subnetted, 6 subnets, 2 masks
+C       10.1.1.0/24 is directly connected, Serial2/0
+C       10.2.2.0/24 is directly connected, FastEthernet0/0
+O       10.10.0.1/32 [110/2] via 10.2.2.2, 00:01:44, FastEthernet0/0
+O       10.10.1.1/32 [110/2] via 10.2.2.2, 00:01:44, FastEthernet0/0
+O       10.10.2.1/32 [110/2] via 10.2.2.2, 00:01:44, FastEthernet0/0
+O       10.10.3.1/32 [110/2] via 10.2.2.2, 00:01:44, FastEthernet0/0
+O IA 192.168.1.0/24 [110/128] via 10.1.1.2, 00:02:19, Serial2/0
+O IA 192.168.2.0/24 [110/192] via 10.1.1.2, 00:02:09, Serial2/0
+
+
+2) на R1AR0 show ip ospf database router
+            OSPF Router with ID (1.1.1.1) (Process ID 1)
+
+                Router Link States (Area 0)
+
+  LS age: 371
+  Options: (No TOS-capability, DC)
+  LS Type: Router Links
+  Link State ID: 1.1.2.2
+  Advertising Router: 1.1.2.2
+  LS Seq Number: 80000003
+  Checksum: 0x8415
+  Length: 48
+  Area Border Router
+  Number of Links: 2
+
+    Link connected to: another Router (point-to-point)
+     (Link ID) Neighboring Router ID: 1.1.1.1
+     (Link Data) Router Interface address: 10.1.1.2
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 64
+
+    Link connected to: a Stub Network
+     (Link ID) Network/subnet number: 10.1.1.0
+     (Link Data) Network Mask: 255.255.255.0
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 64
+
+  LS age: 336
+  Options: (No TOS-capability, DC)
+  LS Type: Router Links
+  Link State ID: 1.1.1.1
+  Advertising Router: 1.1.1.1
+  LS Seq Number: 80000005
+  Checksum: 0xc9a2
+  Length: 60
+  Number of Links: 3
+
+    Link connected to: a Transit Network
+     (Link ID) Designated Router address: 10.2.2.2
+     (Link Data) Router Interface address: 10.2.2.1
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 1
+
+    Link connected to: another Router (point-to-point)
+     (Link ID) Neighboring Router ID: 1.1.2.2
+     (Link Data) Router Interface address: 10.1.1.1
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 64
+
+    Link connected to: a Stub Network
+     (Link ID) Network/subnet number: 10.1.1.0
+     (Link Data) Network Mask: 255.255.255.0
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 64
+
+  LS age: 336
+  Options: (No TOS-capability, DC)
+  LS Type: Router Links
+  Link State ID: 2.2.2.2
+  Advertising Router: 2.2.2.2
+  LS Seq Number: 80000006
+  Checksum: 0xfe82
+  Length: 84
+  Number of Links: 5
+
+    Link connected to: a Stub Network
+     (Link ID) Network/subnet number: 10.10.0.1
+     (Link Data) Network Mask: 255.255.255.255
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 1
+
+    Link connected to: a Stub Network
+     (Link ID) Network/subnet number: 10.10.1.1
+     (Link Data) Network Mask: 255.255.255.255
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 1
+
+    Link connected to: a Stub Network
+     (Link ID) Network/subnet number: 10.10.2.1
+     (Link Data) Network Mask: 255.255.255.255
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 1
+
+    Link connected to: a Stub Network
+     (Link ID) Network/subnet number: 10.10.3.1
+     (Link Data) Network Mask: 255.255.255.255
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 1
+
+    Link connected to: a Transit Network
+     (Link ID) Designated Router address: 10.2.2.2
+     (Link Data) Router Interface address: 10.2.2.2
+      Number of TOS metrics: 0
+       TOS 0 Metrics: 1
+
+
+3) на R1AR0 show ip ospf database network
+
+OSPF Router with ID (1.1.1.1) (Process ID 1)
+
+                Net Link States (Area 0)
+
+  Routing Bit Set on this LSA
+  LS age: 434
+  Options: (No TOS-capability, DC)
+  LS Type: Network Links
+  Link State ID: 10.2.2.2  (address of Designated Router)
+  Advertising Router: 2.2.2.2
+  LS Seq Number: 80000001
+  Checksum: 0x10bb
+  Length: 32
+  Network Mask: /24
+        Attached Router: 1.1.1.1
+        Attached Router: 2.2.2.2
+
+
+4) на R1AR0 show ip route
+     10.0.0.0/8 is variably subnetted, 6 subnets, 2 masks
+C       10.1.1.0/24 is directly connected, Serial2/0
+C       10.2.2.0/24 is directly connected, FastEthernet0/0
+O       10.10.0.1/32 [110/2] via 10.2.2.2, 00:12:36, FastEthernet0/0
+O       10.10.1.1/32 [110/2] via 10.2.2.2, 00:12:36, FastEthernet0/0
+O       10.10.2.1/32 [110/2] via 10.2.2.2, 00:12:36, FastEthernet0/0
+O       10.10.3.1/32 [110/2] via 10.2.2.2, 00:12:36, FastEthernet0/0
+O IA 192.168.1.0/24 [110/128] via 10.1.1.2, 00:13:11, Serial2/0
+O IA 192.168.2.0/24 [110/192] via 10.1.1.2, 00:13:01, Serial2/0
+
+5) summary LSA на R1AR0
+            OSPF Router with ID (1.1.1.1) (Process ID 1)
+
+                Summary Net Link States (Area 0)
+
+  LS age: 859
+  Options: (No TOS-capability, DC, Upward)
+  LS Type: Summary Links(Network)
+  Link State ID: 192.168.1.0 (summary Network Number)
+  Advertising Router: 1.1.2.2
+  LS Seq Number: 80000001
+  Checksum: 0x248a
+  Length: 28
+  Network Mask: /24
+        TOS: 0  Metric: 64
+
+  LS age: 844
+  Options: (No TOS-capability, DC, Upward)
+  LS Type: Summary Links(Network)
+  Link State ID: 192.168.2.0 (summary Network Number)
+  Advertising Router: 1.1.2.2
+  LS Seq Number: 80000002
+  Checksum: 0x99d2
+  Length: 28
+  Network Mask: /24
+        TOS: 0  Metric: 128
+
+
+6) Добавление внешнего домена маршрутизации
+
+на RTPRTR
+hostname RIPRTR
+!
+int s0/0
+ no shut
+ description CONNECTION TO R2AR0
+ ip address 10.3.3.2 255.255.255.0
+!
+router rip
+ version 2
+ no auto-summary
+ network 10.0.0.0
+ network 172.20.0.0
+!
+int loop 0
+ ip address 172.20.0.1 255.255.255.0
+!
+int loop 1
+ ip address 172.20.1.1 255.255.255.0
+!
+int loop 2
+ ip address 172.20.2.1 255.255.255.0
+!
+int loop 3
+ ip address 172.20.3.1 255.255.255.0
+
+на R1AR0
+hostname R2AR0
+!
+router rip
+ version 2
+ network 10.0.0.0
+!
+router ospf 1
+ redistribute rip subnets
+
+7) на R1AR0 show ip route 
+     10.0.0.0/8 is variably subnetted, 7 subnets, 2 masks
+C       10.1.1.0/24 is directly connected, Serial2/0
+C       10.2.2.0/24 is directly connected, FastEthernet0/0
+O E2    10.3.3.0/24 [110/20] via 10.2.2.2, 00:04:49, FastEthernet0/0
+O       10.10.0.1/32 [110/2] via 10.2.2.2, 00:29:07, FastEthernet0/0
+O       10.10.1.1/32 [110/2] via 10.2.2.2, 00:29:07, FastEthernet0/0
+O       10.10.2.1/32 [110/2] via 10.2.2.2, 00:29:07, FastEthernet0/0
+O       10.10.3.1/32 [110/2] via 10.2.2.2, 00:29:07, FastEthernet0/0
+     172.20.0.0/24 is subnetted, 4 subnets
+O E2    172.20.0.0 [110/20] via 10.2.2.2, 00:03:23, FastEthernet0/0
+O E2    172.20.1.0 [110/20] via 10.2.2.2, 00:03:04, FastEthernet0/0
+O E2    172.20.2.0 [110/20] via 10.2.2.2, 00:02:50, FastEthernet0/0
+O E2    172.20.3.0 [110/20] via 10.2.2.2, 00:02:37, FastEthernet0/0
+O IA 192.168.1.0/24 [110/128] via 10.1.1.2, 00:29:42, Serial2/0
+O IA 192.168.2.0/24 [110/192] via 10.1.1.2, 00:29:32, Serial2/0
+
+8) на R1AR0 show ip ospf database external
+            OSPF Router with ID (1.1.1.1) (Process ID 1)
+
+                Type-5 AS External Link States
+
+  Routing Bit Set on this LSA
+  LS age: 359
+  Options: (No TOS-capability, DC)
+  LS Type: AS External Link
+  Link State ID: 10.3.3.0 (External Network Number )
+  Advertising Router: 2.2.2.2
+  LS Seq Number: 80000001
+  Checksum: 0xc5e2
+  Length: 36
+  Network Mask: /24
+        Metric Type: 2 (Larger than any link state path)
+        TOS: 0
+        Metric: 20
+        Forward Address: 0.0.0.0
+        External Route Tag: 0
+
+  Routing Bit Set on this LSA
+  LS age: 273
+  Options: (No TOS-capability, DC)
+  LS Type: AS External Link
+  Link State ID: 172.20.0.0 (External Network Number )
+  Advertising Router: 2.2.2.2
+  LS Seq Number: 80000001
+  Checksum: 0xd81f
+  Length: 36
+  Network Mask: /24
+        Metric Type: 2 (Larger than any link state path)
+        TOS: 0
+        Metric: 20
+        Forward Address: 0.0.0.0
+        External Route Tag: 0
+
+  Routing Bit Set on this LSA
+  LS age: 254
+  Options: (No TOS-capability, DC)
+  LS Type: AS External Link
+  Link State ID: 172.20.1.0 (External Network Number )
+  Advertising Router: 2.2.2.2
+  LS Seq Number: 80000001
+  Checksum: 0xcd29
+  Length: 36
+  Network Mask: /24
+        Metric Type: 2 (Larger than any link state path)
+        TOS: 0
+        Metric: 20
+        Forward Address: 0.0.0.0
+        External Route Tag: 0
+
+  Routing Bit Set on this LSA
+  LS age: 240
+  Options: (No TOS-capability, DC)
+  LS Type: AS External Link
+  Link State ID: 172.20.2.0 (External Network Number )
+  Advertising Router: 2.2.2.2
+  LS Seq Number: 80000001
+  Checksum: 0xc233
+  Length: 36
+  Network Mask: /24
+        Metric Type: 2 (Larger than any link state path)
+        TOS: 0
+        Metric: 20
+        Forward Address: 0.0.0.0
+        External Route Tag: 0
+
+  Routing Bit Set on this LSA
+  LS age: 227
+  Options: (No TOS-capability, DC)
+  LS Type: AS External Link
+  Link State ID: 172.20.3.0 (External Network Number )
+  Advertising Router: 2.2.2.2
+  LS Seq Number: 80000001
+  Checksum: 0xb63e
+  Length: 36
+  Network Mask: /24
+        Metric Type: 2 (Larger than any link state path)
+        TOS: 0
+        Metric: 20
+        Forward Address: 0.0.0.0
+        External Route Tag: 0
+
+
+9) делаем Area 1 stub
+на каждом роутере прописал 
+router ospf 1
+ area 1 stub 
+
+10) сделали totaly stub область. на ABR
+router ospf 1
+ area 1 stub no-summary
+
+11) делаем Area 1 not so stubby
+
+на каждом роутере Area 1 
+router ospf 1
+ no area 1 stub
+ area 1 nssa
+
+ 12) передаем маршрут по умолчанию на ABR, который заменит External LSA. На ABR
+ router ospf 1
+ area 1 nssa
+ area 1 nssa default-information-originate -- команда не сработала, что странно
